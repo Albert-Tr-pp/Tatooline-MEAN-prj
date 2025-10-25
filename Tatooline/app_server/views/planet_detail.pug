@@ -1,0 +1,10 @@
+extends layout
+
+block content
+  .container.mt-4
+    .row
+      .col-md-8
+        h1= planet.name
+        img(src=planet.image alt=planet.name).img-fluid.mb-3
+        p.lead= planet.description
+        a(href='/planets').btn.btn-primary Back to all planets

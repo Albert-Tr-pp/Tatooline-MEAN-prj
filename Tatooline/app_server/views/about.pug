@@ -1,0 +1,25 @@
+extends layout
+
+block links
+
+  link(rel='canonical' href='https://getbootstrap.com/docs/5.3/examples/cover/')
+
+block styles
+  link(rel="stylesheet", href="/stylesheets/about.css")
+  link(rel="stylesheet", href="/stylesheets/cover.css")
+
+block content
+  .cover-container.d-flex.w-100.h-100.p-3.mx-auto.flex-column
+    main.px-3
+      h1 Project Tatooline.
+      p.lead
+        | A web application that allows users to explore various space objects such as planets,
+        | satellites, asteroids, stars, etc. The aim of the project is to popularise space topics among people.
+        | Users will be able to receive new reports and images every day. Learn about new space objects.
+        |Each object will be assigned a unique page displaying data and images.
+        |
+        |Additional educational features will also be available, such as: Space Gallery, Asteroid Tracking,
+        |NASA Satellites Tracker and other features.
+      p.lead
+        a.btn.btn-lg.btn-light.fw-bold.border-white.bg-white(href='/') Explore
+    script.astro-vvvwv3sm(src='../assets/dist/js/bootstrap.bundle.min.js')
