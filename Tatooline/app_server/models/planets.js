@@ -1,3 +1,4 @@
+//require('./planets');
 const mongoose = require('mongoose');
 
 const generalInfoSchema = new mongoose.Schema({

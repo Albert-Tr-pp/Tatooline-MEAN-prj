@@ -1,5 +1,9 @@
 const mongoose = require('mongoose');
-let dbURI = 'mongodb://localhost/Tatooline';
+// let dbURI = 'mongodb+srv://Albert:A12345A@cluster0.12zxlhp.mongodb.net/';
+let dbURI = 'mongodb+srv://Albert:A12345A@cluster0.12zxlhp.mongodb.net/Tatooline?retryWrites=true&w=majority';
+
+//const dbURI = process.env.MONGODB_URI;
+
 if (process.env.NODE_ENV === 'production') {
   dbURI = process.env.MONGODB_URI;
 }
