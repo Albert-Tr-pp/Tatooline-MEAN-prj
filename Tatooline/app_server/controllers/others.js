@@ -1,3 +1,4 @@
+// ----------------------------- INDEX (for now) -----------------------------
 const index = function(req, res){
     res.render('index', { 
         title: 'Tatooline',
@@ -5,8 +6,7 @@ const index = function(req, res){
     });
 };
 
+// ----------------------------- EXPORTS -----------------------------
 module.exports.about = function (req, res) {
   res.render('about', { title: 'About Space Explorer' });
 };
-// , bodyClass: 'd-flex h-100 text-center text-bg-dark'
-

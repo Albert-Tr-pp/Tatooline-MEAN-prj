@@ -1,3 +1,4 @@
+// ----------------------------- REQUIRE -----------------------------
 const express = require('express');
 const router = express.Router();
 
@@ -5,10 +6,10 @@ const ctrlMain = require('../controllers/main');
 const ctrlPlanets = require('../controllers/planets');
 const ctrlOthers = require('../controllers/others');
 
+// ----------------------------- GETS -----------------------------
 router.get('/', ctrlMain.index);
-
 router.get('/planets', ctrlPlanets.homelist);
-
 router.get('/about', ctrlOthers.about);
 
+// ----------------------------- EXPORTS -----------------------------
 module.exports = router;
