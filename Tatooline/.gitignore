@@ -1,3 +1,8 @@
+# Pref
+node_modules
+.env
+cert
+
 # Logs
 logs
 *.log

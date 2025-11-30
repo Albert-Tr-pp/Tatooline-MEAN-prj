@@ -5,12 +5,22 @@
 const request = require('request');
 
 // ----------------------------- apiOptions -----------------------------
+// const apiOptions = {
+//   server : 'https://localhost:443'
+// };
+// if (process.env.NODE_ENV === 'production') {
+//   apiOptions.server = '';
+// }
+
 const apiOptions = {
-server : 'http://localhost:3000'
+  server: process.env.API_SERVER || 'http://localhost:8000'
 };
+
 if (process.env.NODE_ENV === 'production') {
-apiOptions.server = '';
+  apiOptions.server = '';
 }
+
+// const apiOptions = (req) => process.env.API_SERVER || `${req.protocol}://${req.get('host')}`;
 
 // ----------------------------- homelist -----------------------------
 const homelist = function(req, res) {

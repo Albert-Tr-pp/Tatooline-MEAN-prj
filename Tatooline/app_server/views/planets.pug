@@ -1,11 +1,9 @@
 extends layout
 
 block content
-  .container.mt-4
-    h1= title
-    .row
-      each planet in planets
-        .col-md-3.mb-4
-          include planet-card.pug
+  <app-planets-list>Loading...</app-planets-list>
 
-
+block scripts
+  script(type="module" src="/main-ZBJN6CRS.js")
+  link(rel="stylesheet" href="/styles-5INURTSO.css")
+  script(src="/polyfills-FFHMD2TL.js")

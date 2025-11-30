@@ -1,13 +1,35 @@
 // ----------------------------- REQUIRE -----------------------------
 const mongoose = require('mongoose');
-// let dbURI = 'mongodb+srv://Albert:A12345A@cluster0.12zxlhp.mongodb.net/';
-let dbURI = 'mongodb+srv://Albert:A12345A@cluster0.12zxlhp.mongodb.net/Tatooline?retryWrites=true&w=majority';
-//const dbURI = process.env.MONGODB_URI;
 
-if (process.env.NODE_ENV === 'production') {
-  dbURI = process.env.MONGODB_URI;
+// let dbURI = 'mongodb+srv://Albert:A12345A@cluster0.12zxlhp.mongodb.net/Tatooline?retryWrites=true&w=majority';
+
+const dbURI = process.env.MONGODB_URI;
+if (!dbURI) {
+  throw new Error('MONGODB_URI is not set in environment (.env)');
 }
-mongoose.connect(dbURI);
+
+//register models
+require('./planets');
+require('./users');
+
+// try {
+//   mongoose.connect(
+//     dbURI,
+//     { useNewUrlParser: true, useUnifiedTopology: true }
+//   ).then(
+//     () => { console.log(" Mongoose is connected") },
+//     err => { console.log(err) }
+//   );
+// }
+// catch (e) {
+//   console.log("could not connect");
+// }
+// require('./planets');
+// require('./users');
+
+mongoose.connect(dbURI)
+  .then(() => console.log('Mongoose is connected'))
+  .catch(err => console.log('Mongoose connection error:', err));
 
 mongoose.connection.on('connected', () => {
   console.log(`Mongoose connected to ${dbURI}`);

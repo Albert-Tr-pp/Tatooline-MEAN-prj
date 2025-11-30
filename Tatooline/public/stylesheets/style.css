@@ -1,8 +1,4 @@
-/* Then import Bootstrap */
-@import "../node_modules/bootstrap/scss/bootstrap";
-
-
-
+/* Bootstrap already served via /css/bootstrap.min.css; remove SCSS import to avoid 404 */
 html,
 body {
   height: 100%;
@@ -16,11 +12,23 @@ body {
   flex-direction: column;
 }
 
-body.login {
+/* body.login {
   display: flex;
   align-items: center;
   justify-content: center;
+} */
+
+body.login {
+  display: block;
 }
+
+body.login main.form-signin {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 
 header,
 footer {

@@ -2,7 +2,7 @@
 const mongoose = require('mongoose');
 
 // ----------------------------- generalInfoSchema -----------------------------
-const generalInfoSchema = new mongoose.Schema({
+const   GeneralInfoSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true
@@ -10,12 +10,12 @@ const generalInfoSchema = new mongoose.Schema({
 });
 
 // ----------------------------- planetSchema -----------------------------
-const planetSchema = new mongoose.Schema({
-  name: String,
+const PlanetSchema = new mongoose.Schema({
+  name: { type: String, required: true },
   description: String,
   image: String
   // distance, radius, moons...
 });
 
 // ----------------------------- EXPORTS -----------------------------
-module.exports = mongoose.model('Planet', planetSchema);
+module.exports = mongoose.model('Planet', PlanetSchema);
