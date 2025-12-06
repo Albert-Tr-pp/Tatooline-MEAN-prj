@@ -46,7 +46,7 @@ const register = async (req, res) => {
       user: { id: user._id, username: user.username, email: user.email }
     });
   } catch (err) {
-    // если username уже занят
+
     if (err && err.name === 'UserExistsError') {
       return res.status(409).json({ message: 'Username already exists' });
     }
@@ -72,14 +72,29 @@ const register = async (req, res) => {
 // };
 
 const login = (req, res, next) => {
-  passport.authenticate('local', (err, user, info) => {
+  const { username, password } = req.body;
+  console.log('[API LOGIN] start', req.body);
+  res.on('finish', () => console.log('[API LOGIN] finished', res.statusCode));
+
+  if (!username || !password) {
+    return res.status(400).json({ message: 'username and password are required' });
+  }
+
+  User.authenticate()(username, password, (err, user, info) => {
+    console.log('[API LOGIN] authenticate cb', { err: err?.message, hasUser: !!user, info });
+
     if (err) return next(err);
     if (!user) return res.status(401).json({ message: info?.message || 'Invalid username or password' });
 
-    req.login(user, (err2) => {
-      if (err2) return next(err2);
-      req.session.save((err3) => {
-        if (err3) return next(err3);
+    req.session.regenerate((e1) => {
+      if (e1) return next(e1);
+
+      req.session.userId = user._id.toString();
+      req.session.username = user.username;
+
+      req.session.save((e2) => {
+        if (e2) return next(e2);
+
         return res.status(200).json({
           status: 'success',
           action: 'login',
@@ -87,10 +102,8 @@ const login = (req, res, next) => {
         });
       });
     });
-  })(req, res, next);
+  });
 };
-
-
 
 const loginPlain = async (req, res, next) => {
   const { username, password } = req.body;

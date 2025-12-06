@@ -2,20 +2,12 @@
 const createError = require('http-errors');
 const express = require('express');
 
-const fs = require('fs');
-
-const http = require('http');
-const https = require('https');
-
-// const privateKey = fs.readFileSync('./key.pem', 'utf8');
-// const certificate = fs.readFileSync('./cert.pem', 'utf8');
-
 const path = require('path');
-const privateKey = fs.readFileSync(path.join(__dirname, 'key.pem'), 'utf8');
-const certificate = fs.readFileSync(path.join(__dirname, 'cert.pem'), 'utf8');
+// const privateKey = fs.readFileSync(path.join(__dirname, 'key.pem'), 'utf8');
+// const certificate = fs.readFileSync(path.join(__dirname, 'cert.pem'), 'utf8');
 
 
-const credentials = { key: privateKey, cert: certificate };
+// const credentials = { key: privateKey, cert: certificate };
 const cookieParser = require('cookie-parser');
 const favicon = require('serve-favicon');
 const logger = require('morgan');
@@ -74,12 +66,31 @@ passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-
 // ----------------------------- LOGIN -----------------------------
-app.use((req, res, next) => {
-  res.locals.currentUser = req.user;
-  next();
-});
+// app.use((req, res, next) => {
+//   res.locals.currentUser = req.user;
+//   next();
+// });
+
+// ----------------------------- MID -----------------------------
+
+app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
+
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+
+app.use(express.static(path.join(__dirname, 'app_public')));
+
+app.use(
+  express.static(
+    path.join(__dirname, 'app_public')
+  )
+);
 
 // ----------------------------- PUBLIC FOLDERS -----------------------------
 app.use(express.static(path.join(__dirname, 'public')));
@@ -107,6 +118,16 @@ app.use(function(err, req, res, next) {
 });
 
 // ----------------------------- LISENERS -----------------------------
+const fs = require('fs');
+const http = require('http');
+const https = require('https');
+
+var privateKey  = fs.readFileSync('./sslcert/key.pem', 'utf8');
+var certificate = fs.readFileSync('./sslcert/cert.pem', 'utf8');
+
+var credentials = {key: privateKey, cert: certificate};
+
+// ----------------------------- LISENERS -----------------------------
 const httpServer = http.createServer(app);
 const httpsServer = https.createServer(credentials, app);
 
@@ -119,3 +140,5 @@ httpsServer.listen(443, () => {
 });
 
 module.exports = app;
+
+//

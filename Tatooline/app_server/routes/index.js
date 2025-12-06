@@ -7,15 +7,15 @@ const ctrlPlanets = require('../controllers/planets');
 const ctrlOthers = require('../controllers/others');
 const ctrlUsers = require('../controllers/users');
 
-function requireAuth(req, res, next) {
-  if (req.session && req.session.userId) return next();
-  return res.redirect('/login');
-}
-
 // function requireAuth(req, res, next) {
-//   if (req.isAuthenticated && req.isAuthenticated()) return next();
+//   if (req.session && req.session.userId) return next();
 //   return res.redirect('/login');
 // }
+
+function requireAuth(req, res, next) {
+  if (req.isAuthenticated && req.isAuthenticated()) return next();
+  return res.redirect('/login');
+}
 
 
 // ----------------------------- GETS (PAGES) -----------------------------
@@ -24,9 +24,9 @@ router.get('/register', ctrlUsers.register);
 router.get('/logout', ctrlUsers.logout);
 
 // Защищённые страницы
-router.get('/', requireAuth, ctrlMain.index);
-router.get('/planets', requireAuth, ctrlPlanets.homelist);
-router.get('/about', requireAuth, ctrlOthers.about);
+router.get('/', ctrlMain.index);
+router.get('/planets', ctrlPlanets.homelist);
+router.get('/about', ctrlOthers.about);
 
 // ----------------------------- POSTS (FORMS -> API) -----------------------------
 router.post('/do-login', ctrlUsers.doLogin);

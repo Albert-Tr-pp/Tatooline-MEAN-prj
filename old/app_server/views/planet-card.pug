@@ -1,0 +1,6 @@
+.card
+  img.card-img-top(src=planet.image, alt=planet.name)
+  .card-body
+    h5.card-title= planet.name
+    p.card-text= planet.description
+    a.btn.btn-primary(href=`/planets/${planet._id}`) View more →

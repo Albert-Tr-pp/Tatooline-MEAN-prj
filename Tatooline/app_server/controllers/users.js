@@ -2,22 +2,22 @@
 const request = require('request');
 
 // ----------------------------- apiOptions -----------------------------
+
 // const apiOptions = {
-//   server : 'https://localhost:443'
+//   server: process.env.API_SERVER || 'http://localhost:3000'
 // };
+
 // if (process.env.NODE_ENV === 'production') {
 //   apiOptions.server = '';
 // }
 
-const apiOptions = {
-  server: process.env.API_SERVER || 'http://localhost:8000'
-};
+const apiOptions = { 
+  server: 'http://localhost:3000' 
+}; 
 
-if (process.env.NODE_ENV === 'production') {
-  apiOptions.server = '';
+if (process.env.NODE_ENV === 'production') { 
+  apiOptions.server = 'https://tatooline-mean-prj.onrender.com'; 
 }
-
-// const apiOptions = (req) => process.env.API_SERVER || `${req.protocol}://${req.get('host')}`;
 
 // ---------- RENDER HELPERS ----------
 const _renderLogin = (req, res, error) => {
